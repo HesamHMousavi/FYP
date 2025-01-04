@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Expired</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 400px;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .error-box h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+      }
+
+      .error-box p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .back-btn {
+        padding: 12px 20px;
+        background-color: #000;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+      }
+
+      .back-btn:hover {
+        background-color: #333;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 480px) {
+        .error-box h2 {
+          font-size: 20px;
+        }
+
+        .error-box p {
+          font-size: 14px;
+        }
+
+        .back-btn {
+          padding: 10px 15px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-box">
+        <h2>Session Expired</h2>
+        <p>
+          Your session has expired. The link you clicked on was only valid for
+          10 minutes. Please request a new link and try again.
+        </p>
+        <!-- <button class="back-btn" onclick="window.location.href = 'https://your-site.com/request-reset-link';">Request a New Link</button> -->
+      </div>
+    </div>
+  </body>
+</html>

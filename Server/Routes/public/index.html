@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 400px;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .reset-password-box h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .input-group {
+        width: 100%;
+        margin-bottom: 15px;
+        text-align: left;
+        box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .input-group input {
+        width: 100%;
+        max-width: 100%; /* Prevent overflow */
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        background: #f9f9f9;
+        transition: border-color 0.3s;
+        box-sizing: border-box; /* Ensures padding is included in width calculation */
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: #000;
+        background: #fff;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #000;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s, transform 0.2s;
+        box-sizing: border-box;
+      }
+
+      .submit-btn:hover {
+        background-color: #333;
+        transform: scale(1.02);
+      }
+
+      .submit-btn:active {
+        transform: scale(1);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 480px) {
+        .reset-password-box h2 {
+          font-size: 20px;
+        }
+
+        .input-group label {
+          font-size: 13px;
+        }
+
+        .input-group input,
+        .submit-btn {
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="reset-password-box">
+        <h2>Reset Password</h2>
+        <form id="reset-password-form" class="form">
+          <div class="input-group">
+            <label for="new-password">New Password</label>
+            <input
+              type="password"
+              id="new-password"
+              name="new-password"
+              required
+              placeholder="Enter new password"
+            />
+          </div>
+          <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              required
+              placeholder="Confirm new password"
+            />
+          </div>
+          <button type="submit" class="submit-btn">Reset Password</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Handle form submission
+      document
+        .getElementById("reset-password-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault(); // Prevent form from submitting the default way
+
+          const newPassword = document.getElementById("new-password").value;
+          const confirmPassword =
+            document.getElementById("confirm-password").value;
+
+          // Check if passwords match
+          if (newPassword !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          try {
+            const pathSegments = window.location.pathname.split("/");
+            const id = pathSegments[2]; // 3rd segment is user ID
+            const token = pathSegments[3];
+            const response = await fetch(
+              `http://127.0.0.1:5001/reset-password/${id}/${token}`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ newPassword }),
+              }
+            );
+
+            if (response.ok) {
+              alert("Password reset successfully!");
+              // Redirect or perform other actions here
+            } else {
+              const error = await response.json();
+              alert(`Error: ${error.message}`);
+            }
+          } catch (error) {
+            alert("Network error, please try again later.");
+          }
+        });
+    </script>
+  </body>
+</html>
